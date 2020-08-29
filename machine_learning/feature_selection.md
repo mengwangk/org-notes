@@ -7,8 +7,9 @@
 - Multivariate filter methods
 
 
-### Univariate
+### Methods
 - Removing constant features
 - Removing quasi-constant features
-
+- Removing duplicate features
+- Removing correlated features
 
