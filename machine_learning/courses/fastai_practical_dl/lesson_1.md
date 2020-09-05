@@ -1,4 +1,4 @@
-# Lessson 1
+# Lesson 1 - Your first models
 
 * Math - high school math
 * Lots of data - record breaking results < 50 items of data
@@ -61,4 +61,5 @@ Limitations inherent to ML
 - a model can only learn to operate on patterns seen in the input data used to train it
 - learning approach only creates predictions, not recommended actions
 - need labels
+
 
