@@ -17,7 +17,7 @@
 Neural networks: a brief history
 - Warren McCulloch 1943
 
-first AI winter, thanks to msiinterpretation of theory
+first AI winter, thanks to misinterpretation of theory
 
 PDP - parallel distributed processing released in 1986
 
