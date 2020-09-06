@@ -4,6 +4,7 @@
 
 - [vim-visual-multi](https://github.com/mg979/vim-visual-multi)
 - [fern.vim](https://github.com/lambdalisue/fern.vim)
+- [vim-bujo]( https://github.com/vuciv/vim-bujo )
 
 ## Tips
 
