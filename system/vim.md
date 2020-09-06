@@ -15,6 +15,8 @@
 - "+p – paste from + after the cursor (works in both normal and visual modes)
 - :%y _ – copy the entire buffer into _ (this one is an ex command)
 
+[vim regex](http://vimregex.com/)
+
 ### vim-surround
 
 insert mode - ^s<tag>
