@@ -1,4 +1,4 @@
-# Microservice
+# Microservice Transaction Control
 
 ## [Handling distributed transactions](https://medium.com/swlh/handling-transactions-in-the-microservice-world-c77b275813e0)
 - How to keep transactions atomic

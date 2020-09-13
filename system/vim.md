@@ -1,13 +1,11 @@
 # vim
 
 ## Plugin
-
 - [vim-visual-multi](https://github.com/mg979/vim-visual-multi)
 - [fern.vim](https://github.com/lambdalisue/fern.vim)
 - [vim-bujo]( https://github.com/vuciv/vim-bujo )
 
 ## Tips
-
 [Clipboard Registers](https://vim.fandom.com/wiki/Accessing_the_system_clipboard)
 
 - gg"+yG – copy the entire buffer into + (normal mode)
@@ -18,10 +16,14 @@
 [vim regex](http://vimregex.com/)
 
 ### vim-surround
-
 insert mode - ^s<tag>
 http://www.futurile.net/2016/03/19/vim-surround-plugin-tutorial/
 
 ## VSCode vim
 [VSCode with embedded Neovim](https://www.youtube.com/watch?v=g4dXZ0RQWdw&t=4s)
 
+## [fzf](https://www.youtube.com/watch?v=r_eJvqBDzPo&t=653s)
+```
+>fzf
+> vim $(fzf)
+```
