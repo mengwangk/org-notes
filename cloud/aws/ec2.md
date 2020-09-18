@@ -8,4 +8,3 @@
 - Scale based on schedule
 - Scale based on demand
 - Use predictive scaling
-
