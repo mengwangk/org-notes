@@ -1,0 +1,18 @@
+* Python programming
+
+https://www.programiz.com/python-programming/closure
+
+
+https://www.programiz.com/python-programming/generator
+
+
+https://www.fast.ai/2019/08/06/delegation/
+
+
+
+
+
+
+
+
+
