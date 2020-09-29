@@ -1,5 +1,6 @@
-* [[https://www.youtube.com/watch?v=GIsg-ZUy0MY][PyTorch for Deep Learning]]
-** [ ] f
-** [ ] 
+* [[https://www.youtube.com/watch?v=GIsg-ZUy0MY][PyTorch for Deep Learning]]                                           :topic:
 
-
+* pytorch basic and linear regressions
+** Rules + data -> classical programming -> Answers
+** Data + answers -> machine learning -> Rule
+** 
