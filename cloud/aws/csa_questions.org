@@ -105,7 +105,6 @@ ANS: D, or B?
 
 https://aws.amazon.com/blogs/aws/new-vpc-traffic-mirroring/
 
-
 ** Question #5
 A company is storing data on Amazon Simple Storage Service (S3). The
 company's security policy mandates that data is encrypted at rest.
