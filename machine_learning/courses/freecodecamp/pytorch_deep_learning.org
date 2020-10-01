@@ -6,6 +6,7 @@
 ** Rules + data -> classical programming -> Answers
 ** Data + answers -> machine learning -> Rule
 ** 
-   
+
+[[https://colab.research.google.com/drive/130wQqMR9pcgSZZL-m_re-BGmv6rsL-RA#scrollTo=HWKdR_ZnWZ8_][01-pytorch-basics.ipynb]]
 
    

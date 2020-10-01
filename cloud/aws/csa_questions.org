@@ -117,26 +117,60 @@ D. Use Amazon S3 bucket policies to restrict access to the data at rest.
 E. Encrypt the data on the client-side before ingesting to Amazon S3 using their own master key.
 F. Use SSL to encrypt the data while in transit to Amazon S3.
 
-ANS: 
+ANS: ABE
 
+http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html
 
-Question #6Topic 1
-Your firm has uploaded a large amount of aerial image data to S3. In the past, in your on-premises environment, you used a dedicated group of servers to oaten process this data and used Rabbit MQ - An open source messaging system to get job information to the servers. Once processed the data would go to tape and be shipped offsite. Your manager told you to stay with the current design, and leverage AWS archival storage and messaging services to minimize cost.
-Which is correct?
-A. Use SQS for passing job messages use Cloud Watch alarms to terminate EC2 worker instances when they become idle. Once data is processed, change the storage class of the S3 objects to Reduced Redundancy Storage.
-B. Setup Auto-Scaled workers triggered by queue depth that use spot instances to process messages in SOS Once data is processed, change the storage class of the S3 objects to Reduced Redundancy Storage.
-C. Setup Auto-Scaled workers triggered by queue depth that use spot instances to process messages in SQS Once data is processed, change the storage class of the S3 objects to Glacier.
-D. Use SNS to pass job messages use Cloud Watch alarms to terminate spot worker instances when they
-Reveal Solution    Discussion   10
-Question #7Topic 1
-You've been hired to enhance the overall security posture for a very large e-commerce site. They have a well architected multi-tier application running in a VPC that uses ELBs in front of both the web and the app tier with static assets served directly from S3. They are using a combination of RDS and DynamoOB for their dynamic data and then archiving nightly into S3 for further processing with EMR. They are concerned because they found questionable log entries and suspect someone is attempting to gain unauthorized access.
-Which approach provides a cost effective scalable mitigation to this kind of attack?
+** Question #6
+
+Your firm has uploaded a large amount of aerial image data to S3. In
+the past, in your on-premises environment, you used a dedicated group
+of servers to oaten process this data and used Rabbit MQ - An open
+source messaging system to get job information to the servers. Once
+processed the data would go to tape and be shipped offsite. Your
+manager told you to stay with the current design, and leverage AWS
+archival storage and messaging services to minimize cost.  Which is
+correct?
+
+A. Use SQS for passing job messages use Cloud Watch alarms to
+terminate EC2 worker instances when they become idle. Once data is
+processed, change the storage class of the S3 objects to Reduced
+Redundancy Storage.
+B. Setup Auto-Scaled workers triggered by queue depth that use spot
+instances to process messages in SOS Once data is processed, change
+the storage class of the S3 objects to Reduced Redundancy Storage.
+C. Setup Auto-Scaled workers triggered by queue depth that use spot
+instances to process messages in SQS Once data is processed, change
+the storage class of the S3 objects to Glacier.
+D. Use SNS to pass job messages use Cloud Watch alarms to terminate
+spot worker instances when they
+
+ANS: C
+
+Use Auto Scale on Spot instance for the depth of SQS. use Glacier as
+the question is using Tape for offline.
+
+** Question #7
+
+You've been hired to enhance the overall security posture for a very
+large e-commerce site. They have a well architected multi-tier
+application running in a VPC that uses ELBs in front of both the web
+and the app tier with static assets served directly from S3. They are
+using a combination of RDS and DynamoOB for their dynamic data and
+then archiving nightly into S3 for further processing with EMR. They
+are concerned because they found questionable log entries and suspect
+someone is attempting to gain unauthorized access.
+
+Which approach provides a cost effective scalable mitigation to this
+kind of attack?
+
 A. Recommend that they lease space at a DirectConnect partner location and establish a 1G DirectConnect connection to their VPC they would then establish Internet connectivity into their space, filter the traffic in hardware Web Application Firewall (WAF). And then pass the traffic through the DirectConnect connection into their application running in their VPC.
 B. Add previously identified hostile source IPs as an explicit INBOUND DENY NACL to the web tier subnet.
 C. Add a WAF tier by creating a new ELB and an AutoScaling group of EC2 Instances running a host-based WAF. They would redirect Route 53 to resolve to the new WAF tier ELB. The WAF tier would their pass the traffic to the current web tier The web tier Security Groups would be updated to only allow traffic from the WAF tier Security Group
 D. Remove all but TLS 1.2 from the web tier ELB and enable Advanced Protocol Filtering. This will enable the
 Reveal Solution    Discussion   17
-Question #8Topic 1
+
+** Question #8
 Your company is in the process of developing a next generation pet collar that collects biometric information to assist families with promoting healthy lifestyles for their pets. Each collar will push 30kb of biometric data in
 JSON format every 2 seconds to a collection platform that will process and analyze the data providing health trending information back to the pet owners and veterinarians via a web portal. Management has tasked you to architect the collection platform ensuring the following requirements are met.
 ✑ Provide the ability for real-time analytics of the inbound biometric data
@@ -165,39 +199,4 @@ B. Create your RDS instance separately and add its IP address to your applicatio
 C. Create your RDS instance separately and pass its DNS name to your app's DB connection string as an environment variable. Create a security group for client machines and add it as a valid source for DB traffic to the security group of the RDS instance itself.
 D. Create your RDS instance separately and pass its DNS name to your's DB connection string as an
 Reveal Solution    Discussion   28
-Next Questions 
-Social Media
-Facebook , Twitter
-YouTube , Reddit
-Pinterest
-
-Email Address
-team@examtopics.com
-www.examtopics.com
-
-
-We are the biggest and most updated IT certification exam material website.
-
-Using our own resources, we strive to strengthen the IT professionals community for free.
-
-RECENT ARTICLES
-20
-September
-The 5 Most In-Demand Project Management Certifications of 2019
-IT Certifications
-04
-September
-A Beginners Guide to SQL
-IT Certifications
-SITEMAP
-HomeAll ExamsNewsAboutContactForumDMCALoginSign up
- 
- 
- 
- 
-© 2018 ExamTopics
-
-ExamTopics doesn't offer Real Microsoft Exam Questions. ExamTopics Materials do not contain actual questions and answers from Cisco's Certification Exams.
-
-CFA Institute does not endorse, promote or warrant the accuracy or quality of ExamTopics. CFA® and Chartered Financial Analyst® are registered trademarks owned by CFA Institute.
 
