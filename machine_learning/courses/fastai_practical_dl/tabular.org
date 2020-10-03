@@ -1,0 +1,78 @@
+* Tabular Learner :Topic:
+  
+* [[https://towardsdatascience.com/deep-learning-using-pytorch-for-tabular-data-c68017d8b480][PyTorch for Tabular Data]]
+
+** https://github.com/offirinbar/NYC_Taxi/blob/master/NYC_Taxi_PyTorch.ipynb
+
+
+* [[https://medium.com/@crcrpar/optuna-fastai-tabular-model-001-55777031e288][Get Better fastai Tabular Model with Optuna]]
+
+**
+
+
+* [[https://www.kaggle.com/skylord/fastai-tabular-starter-code][Fastai Tabular Starter Code]]
+
+
+* [[https://www.kaggle.com/quanghm/fastai-1-0-tabular-learner-with-ensemble][Fastai Tabular Learner with Ensemble]]
+
+
+* [[
+https://towardsdatascience.com/deep-learning-personal-notes-part-1-lesson-4-structured-learning-natural-language-processing-26188d744ece
+][Fastai Notes]]
+
+
+* [[https://forums.fast.ai/t/tabular-learner-fine-tuning/40050/11][Tabular Learner Fine Tuning]]
+
+#+BEGIN_QUOTE
+def run_learner(learn):
+
+  # start with a mega rate
+  learn.fit_one_cycle(3, 3e-4)
+  # 10x higher learn-rate with higher steps
+  learn.fit_one_cycle(5, 1e-6, wd=0.3)
+  # smaller rate with smaller steps
+  learn.fit_one_cycle(5, 1e-07, wd=0.1)
+  # plot losses
+  learn.recorder.plot_losses()
+#+END_QUOTE
+
+* [[https://towardsdatascience.com/deep-learning-using-pytorch-for-tabular-data-c68017d8b480][Deep Learning Tabular Data with PyTorch]]
+
+
+
+* [[https://www.martinalarcon.org/2018-12-31-b-water-pumps/][fast.ai Deep Learnig vs XGBoost on tabular data]]
+
+** https://github.com/DanielMartinAlarcon/water-pumps-2
+
+** The tabular functionality in fast.ai combines training, validation, and (optionally) testing data into a single TabularDataBunch object. This structure makes it possible to tune pre-processing steps on the training data and then apply them equally to the validation and test data. Thus, with fast.ai the process of normalizing, inputing missing values, and determining the categories for each categorical variable is largely automated. More interestingly, as we’ll see below, this processed data can be used to fit models from other libraries.
+
+** Fast.ai creates embeddings for all the categorical variables, grouping them so that the similarities between category members can be exploited. I set the embeddings to half the size of each variable’s cardinality, up to a max of 50. This is a rule of thumb presented in the fast.ai courses, which overrides the library’s default embedding size.
+
+#+BEGIN_QUOTE
+# Creates dictionary of embedding sizes for the categorical features
+categories = X_train_processed[cat_names].nunique().keys().to_list()
+cardinalities = X_train_processed[cat_names].nunique().values
+emb_szs = {cat: min(50, card//2) for cat, card in zip(categories, cardinalities)}
+emb_sz
+#+END_QUOTE
+
+** I created a tabular learner with relatively large layers, modeled after the architecture that was used to earn the third place in the Rossman Kaggle competition. I regularize the model using dropouts for both layers (0.001, 0.01) and embeddings (0.04).
+
+#+BEGIN_QUOTE
+# Creates the tabular leraner
+learn = tabular_learner(data, emb_szs=emb_szs, layers=[1000,500],
+                        ps=[0.001,0.01], metrics=accuracy, emb_drop=0.04)
+
+# Prints out the model structure.
+learn.model
+#+END_QUOTE
+
+* [[https://zhuanlan.zhihu.com/p/87416381][Dropout: Simple Way to Prevent Overfitting]]I
+
+#+BEGIN_QUOTE
+learn = tabular_learner(data, layers=[1000,500], ps=[0.001,0.01], emb_drop=0.04, y_range=y_range, metrics=exp_rmspe)
+#+END_QUOTE
+
+* [[https://towardsdatascience.com/deep-learning-using-pytorch-for-tabular-data-c68017d8b480][Deep Learning Tabular Data with PyTorch]]
+
+[[https://github.com/offirinbar/NYC_Taxi/blob/master/NYC_Taxi_PyTorch.ipynb][NYC Taxi notebook]]
