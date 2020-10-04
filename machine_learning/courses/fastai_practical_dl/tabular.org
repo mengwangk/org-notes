@@ -2,25 +2,13 @@
   
 * [[https://towardsdatascience.com/deep-learning-using-pytorch-for-tabular-data-c68017d8b480][PyTorch for Tabular Data]]
 
-** https://github.com/offirinbar/NYC_Taxi/blob/master/NYC_Taxi_PyTorch.ipynb
-
-
-* [[https://medium.com/@crcrpar/optuna-fastai-tabular-model-001-55777031e288][Get Better fastai Tabular Model with Optuna]]
-
-**
-
+https://github.com/offirinbar/NYC_Taxi/blob/master/NYC_Taxi_PyTorch.ipynb
 
 * [[https://www.kaggle.com/skylord/fastai-tabular-starter-code][Fastai Tabular Starter Code]]
-
-
 * [[https://www.kaggle.com/quanghm/fastai-1-0-tabular-learner-with-ensemble][Fastai Tabular Learner with Ensemble]]
-
-
 * [[
 https://towardsdatascience.com/deep-learning-personal-notes-part-1-lesson-4-structured-learning-natural-language-processing-26188d744ece
 ][Fastai Notes]]
-
-
 * [[https://forums.fast.ai/t/tabular-learner-fine-tuning/40050/11][Tabular Learner Fine Tuning]]
 
 #+BEGIN_QUOTE
@@ -35,11 +23,6 @@ def run_learner(learn):
   # plot losses
   learn.recorder.plot_losses()
 #+END_QUOTE
-
-* [[https://towardsdatascience.com/deep-learning-using-pytorch-for-tabular-data-c68017d8b480][Deep Learning Tabular Data with PyTorch]]
-
-
-
 * [[https://www.martinalarcon.org/2018-12-31-b-water-pumps/][fast.ai Deep Learnig vs XGBoost on tabular data]]
 
 ** https://github.com/DanielMartinAlarcon/water-pumps-2
@@ -76,3 +59,19 @@ learn = tabular_learner(data, layers=[1000,500], ps=[0.001,0.01], emb_drop=0.04,
 * [[https://towardsdatascience.com/deep-learning-using-pytorch-for-tabular-data-c68017d8b480][Deep Learning Tabular Data with PyTorch]]
 
 [[https://github.com/offirinbar/NYC_Taxi/blob/master/NYC_Taxi_PyTorch.ipynb][NYC Taxi notebook]]
+
+* [[https://forums.fast.ai/t/an-attempt-to-find-the-right-hidden-layer-size-for-your-tabular-learner/45714/4][An Attemp to Find the Right Hidden Layer Size]] :Tuning:
+
+#+BEGIN_QUOTE
+def calcHiddenLayer(data, alpha, numHiddenLayers):
+  tempData = data.train_ds
+  i, o = len(tempData.x.classes), len(tempData.y.classes)
+  io = i+o
+  return [(len(data.train_ds)//(alpha*(io)))//numHiddenLayers]*numHiddenLayers
+#+END_QUOTE
+
+[[https://forums.fast.ai/t/tabular-transfer-learning-and-or-retraining-with-fastai/43384/11][Tabular Transfer Learning]]
+
+[[https://colab.research.google.com/drive/1yvA6pFPbmtwUUw1VDtPixoqWPTgkEfpM#scrollTo=yARh6dovsqZu][Notebook]]
+
+* [[https://medium.com/@crcrpar/optuna-fastai-tabular-model-001-55777031e288][Get Better fastai Tabular Model with Optuna]]
