@@ -1,6 +1,7 @@
 * [[https://www.examtopics.com/exams/amazon/aws-certified-solutions-architect-professional/view/][AWS CSA Professional Questions]]                                       :Main:
   
 
+* Page 1
 ** Question #1
 
 Your company policies require encryption of sensitive data at
@@ -152,14 +153,13 @@ the question is using Tape for offline.
 
 ** Question #7
 
-You've been hired to enhance the overall security posture for a very
-large e-commerce site. They have a well architected multi-tier
-application running in a VPC that uses ELBs in front of both the web
-and the app tier with static assets served directly from S3. They are
-using a combination of RDS and DynamoOB for their dynamic data and
-then archiving nightly into S3 for further processing with EMR. They
-are concerned because they found questionable log entries and suspect
-someone is attempting to gain unauthorized access.
+You've been hired to enhance the overall security posture for a very large
+e-commerce site. They have a well architected multi-tier application running in
+a VPC that uses ELBs in front of both the web and the app tier with static
+assets served directly from S3. They are using a combination of RDS and DynamoOB
+for their dynamic data and then archiving nightly into S3 for further processing
+with EMR. They are concerned because they found questionable log entries and
+suspect someone is attempting to gain unauthorized access.
 
 Which approach provides a cost effective scalable mitigation to this
 kind of attack?
@@ -168,35 +168,219 @@ A. Recommend that they lease space at a DirectConnect partner location and estab
 B. Add previously identified hostile source IPs as an explicit INBOUND DENY NACL to the web tier subnet.
 C. Add a WAF tier by creating a new ELB and an AutoScaling group of EC2 Instances running a host-based WAF. They would redirect Route 53 to resolve to the new WAF tier ELB. The WAF tier would their pass the traffic to the current web tier The web tier Security Groups would be updated to only allow traffic from the WAF tier Security Group
 D. Remove all but TLS 1.2 from the web tier ELB and enable Advanced Protocol Filtering. This will enable the
-Reveal Solution    Discussion   17
+
+ANS: C
 
 ** Question #8
-Your company is in the process of developing a next generation pet collar that collects biometric information to assist families with promoting healthy lifestyles for their pets. Each collar will push 30kb of biometric data in
-JSON format every 2 seconds to a collection platform that will process and analyze the data providing health trending information back to the pet owners and veterinarians via a web portal. Management has tasked you to architect the collection platform ensuring the following requirements are met.
+Your company is in the process of developing a next generation pet collar that
+collects biometric information to assist families with promoting healthy
+lifestyles for their pets. Each collar will push 30kb of biometric data in JSON
+format every 2 seconds to a collection platform that will process and analyze
+the data providing health trending information back to the pet owners and
+veterinarians via a web portal. Management has tasked you to architect the
+collection platform ensuring the following requirements are met.
+
 ✑ Provide the ability for real-time analytics of the inbound biometric data
 ✑ Ensure processing of the biometric data is highly durable. Elastic and parallel
 ✑ The results of the analytic processing should be persisted for data mining
+
 Which architecture outlined below win meet the initial requirements for the collection platform?
+
 A. Utilize S3 to collect the inbound sensor data analyze the data from S3 with a daily scheduled Data Pipeline and save the results to a Redshift Cluster.
 B. Utilize Amazon Kinesis to collect the inbound sensor data, analyze the data with Kinesis clients and save the results to a Redshift cluster using EMR.
 C. Utilize SQS to collect the inbound sensor data analyze the data from SQS with Amazon Kinesis and save the results to a Microsoft SQL Server RDS instance.
 D. Utilize EMR to collect the inbound sensor data, analyze the data from EUR with Amazon Kinesis and save
-Reveal Solution    Discussion   10
-Question #9Topic 1
+
+   ANS: B
+
+** Question #9
 You are designing Internet connectivity for your VPC. The Web servers must be available on the Internet. The application must have a highly available architecture.
+
 Which alternatives should you consider? (Choose 2)
+
 A. Configure a NAT instance in your VPC. Create a default route via the NAT instance and associate it with all subnets. Configure a DNS A record that points to the NAT instance public IP address.
 B. Configure a CloudFront distribution and configure the origin to point to the private IP addresses of your Web servers. Configure a Route53 CNAME record to your CloudFront distribution.
 C. Place all your web servers behind ELB. Configure a Route53 CNMIE to point to the ELB DNS name.
 D. Assign EIPs to all web servers. Configure a Route53 record set with all EIPs, with health checks and DNS failover.
 E. Configure ELB with an EIP. Place all your Web servers behind ELB. Configure a Route53 A record that points to the EIP.
-Reveal Solution    Discussion   21
-Question #10Topic 1
-Your team has a tomcat-based Java application you need to deploy into development, test and production environments. After some research, you opt to use Elastic Beanstalk due to its tight integration with your developer tools and RDS due to its ease of management. Your QA team lead points out that you need to roll a sanitized set of production data into your environment on a nightly basis. Similarly, other software teams in your org want access to that same restored data via their EC2 instances in your VPC.
-The optimal setup for persistence and security that meets the above requirements would be the following.
-A. Create your RDS instance as part of your Elastic Beanstalk definition and alter its security group to allow access to it from hosts in your application subnets.
-B. Create your RDS instance separately and add its IP address to your application's DB connection strings in your code Alter its security group to allow access to it from hosts within your VPC's IP address block.
-C. Create your RDS instance separately and pass its DNS name to your app's DB connection string as an environment variable. Create a security group for client machines and add it as a valid source for DB traffic to the security group of the RDS instance itself.
-D. Create your RDS instance separately and pass its DNS name to your's DB connection string as an
-Reveal Solution    Discussion   28
 
+   ANS: C, D  (ELB cannot have EIP)
+   https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.html
+
+** Question #10
+Your team has a tomcat-based Java application you need to deploy into
+development, test and production environments. After some research, you opt to
+use Elastic Beanstalk due to its tight integration with your developer tools and
+RDS due to its ease of management. Your QA team lead points out that you need to
+roll a sanitized set of production data into your environment on a nightly
+basis. Similarly, other software teams in your org want access to that same
+restored data via their EC2 instances in your VPC.
+
+The optimal setup for persistence and security that meets the above requirements
+would be the following.
+
+A. Create your RDS instance as part of your Elastic Beanstalk definition and
+   alter its security group to allow access to it from hosts in your application
+   subnets.
+B. Create your RDS instance separately and add its IP address to your
+   application's DB connection strings in your code Alter its security group to
+   allow access to it from hosts within your VPC's IP address block.
+C. Create your RDS instance separately and pass its DNS name to your app's DB
+   connection string as an environment variable. Create a security group for
+   client machines and add it as a valid source for DB traffic to the security
+   group of the RDS instance itself.
+D. Create your RDS instance separately and pass its DNS name to your's DB
+   connection string as an
+
+   ANS: C
+   https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/AWSHowTo.RDS.html
+
+   AWS Elastic Beanstalk provides support for running Amazon Relational Database Service (Amazon RDS) instances in your Elastic Beanstalk environment. To learn about that, see Adding a database to your Elastic Beanstalk environment. This works great for development and testing environments. However, it isn't ideal for a production environment because it ties the lifecycle of the database instance to the lifecycle of your application's environment.
+
+
+* Page 2
+** Question #11
+
+Your company has an on-premises multi-tier PHP web application, which recently
+experienced downtime due to a large burst in web traffic due to a company
+announcement Over the coming days, you are expecting similar announcements to
+drive similar unpredictable bursts, and are looking to find ways to quickly
+improve your infrastructures ability to handle unexpected increases in traffic.
+The application currently consists of 2 tiers a web tier which consists of a load balancer and several Linux Apache web servers as well as a database tier which hosts a Linux server hosting a MySQL database.
+
+Which scenario below will provide full site functionality, while helping to improve the ability of your application in the short timeframe required?
+
+A. Failover environment: Create an S3 bucket and configure it for website
+   hosting. Migrate your DNS to Route53 using zone file import, and leverage
+   Route53 DNS failover to failover to the S3 hosted website.
+B. Hybrid environment: Create an AMI, which can be used to launch web servers in
+   EC2. Create an Auto Scaling group, which uses the AMI to scale the web tier
+   based on incoming traffic. Leverage Elastic Load Balancing to balance traffic
+   between on-premises web servers and those hosted in AWS.
+C. Offload traffic from on-premises environment: Setup a CIoudFront
+   distribution, and configure CloudFront to cache objects from a custom origin.
+   Choose to customize your object cache behavior, and select a TTL that objects
+   should exist in cache.
+D. Migrate to AWS: Use VM Import/Export to quickly convert an on-premises web
+   server to an AMI. Create an Auto Scaling group, which uses the imported AMI
+   to scale the web tier based on incoming traffic. Create an RDS read replica
+   and setup replication between the RDS instance and on-premises MySQL server
+   to migrate the database.
+
+   ANS: C
+
+   https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistS3AndCustomOrigins.html
+
+   A custom origin is an HTTP server, for example, a web server. The HTTP server can be an Amazon Elastic Compute Cloud (Amazon EC2) instance or an HTTP server that you manage privately. An Amazon S3 origin configured as a website endpoint is also considered a custom origin.
+
+** Question #12
+
+You are implementing AWS Direct Connect. You intend to use AWS public service
+end points such as Amazon S3, across the AWS Direct Connect link. You want other
+Internet traffic to use your existing link to an Internet Service Provider.
+What is the correct way to configure AWS Direct connect for access to services
+such as Amazon S3?
+
+A. Configure a public Interface on your AWS Direct Connect link. Configure a static route via your AWS Direct Connect link that points to Amazon S3 Advertise a default route to AWS using BGP.
+B. Create a private interface on your AWS Direct Connect link. Configure a static route via your AWS Direct connect link that points to Amazon S3 Configure specific routes to your network in your VPC.
+C. Create a public interface on your AWS Direct Connect link. Redistribute BGP routes into your existing routing infrastructure; advertise specific routes for your network to AWS.
+D. Create a private interface on your AWS Direct connect link. Redistribute BGP routes into your existing
+
+ANS: C
+
+Answer is C. We need a public interface to reach public S3 here
+A is wrong as you don't want the default route to point to AWS (all other internet traffic must use the ISP).
+B is wrong as you need a public interface to reach the public S3.
+C is correct, a public interface tor each S3, the specific S3 routes must use that interface, not the default.
+D is wrong as you need a public interface to reach the public S3.
+
+https://aws.amazon.com/premiumsupport/knowledge-center/public-private-interface-dx/
+
+"To connect to AWS resources that are reachable by a public IP address (such as an Amazon Simple Storage Service bucket) or AWS public endpoints, use a public virtual interface. With a public virtual interface, you can:
+
+Connect to all AWS public IP addresses globally.
+Create public virtual interfaces in any DX location to receive Amazon’s global IP routes.
+Access publicly routable Amazon services in any AWS Region (except the AWS China Region)."
+
+** Question #13
+
+Your application is using an ELB in front of an Auto Scaling group of
+web/application servers deployed across two AZs and a Multi-AZ RDS Instance for
+data persistence.  The database CPU is often above 80% usage and 90% of I/O
+operations on the database are reads. To improve performance you recently added
+a single-node Memcached ElastiCache Cluster to cache frequent DB query results.
+In the next weeks the overall workload is expected to grow by 30%.  Do you need
+to change anything in the architecture to maintain the high availability or the
+application with the anticipated additional load? Why?
+
+A. Yes, you should deploy two Memcached ElastiCache Clusters in different AZs because the RDS instance will not be able to handle the load if the cache node fails.
+B. No, if the cache node fails you can always get the same data from the DB without having any availability impact.
+C. No, if the cache node fails the automated ElastiCache node recovery feature will prevent any availability impact.
+D. Yes, you should deploy the Memcached ElastiCache Cluster with two nodes in the same AZ as the RDS
+
+** Question #14
+An ERP application is deployed across multiple AZs in a single region. In the event of failure, the Recovery
+Time Objective (RTO) must be less than 3 hours, and the Recovery Point Objective (RPO) must be 15 minutes. The customer realizes that data corruption occurred roughly 1.5 hours ago.
+What DR strategy could be used to achieve this RTO and RPO in the event of this kind of failure?
+A. Take hourly DB backups to S3, with transaction logs stored in S3 every 5 minutes.
+B. Use synchronous database master-slave replication between two availability zones.
+C. Take hourly DB backups to EC2 Instance store volumes with transaction logs stored In S3 every 5 minutes.
+D. Take 15 minute DB backups stored In Glacier with transaction logs stored in S3 every 5 minutes.
+
+Question #15Topic 1
+You are designing the network infrastructure for an application server in Amazon VPC. Users will access all application instances from the Internet, as well as from an on-premises network. The on-premises network is connected to your VPC over an AWS Direct Connect link.
+How would you design routing to meet the above requirements?
+A. Configure a single routing table with a default route via the Internet gateway. Propagate a default route via BGP on the AWS Direct Connect customer router. Associate the routing table with all VPC subnets.
+B. Configure a single routing table with a default route via the Internet gateway. Propagate specific routes for the on-premises networks via BGP on the AWS Direct Connect customer router. Associate the routing table with all VPC subnets.
+C. Configure a single routing table with two default routes: on to the Internet via an Internet gateway, the other to the on-premises network via the VPN gateway. Use this routing table across all subnets in the VPC.
+D. Configure two routing tables: on that has a default router via the Internet gateway, and other that has a
+
+Question #16Topic 1
+You control access to S3 buckets and objects with:
+A. Identity and Access Management (IAM) Policies.
+B. Access Control Lists (ACLs).
+C. Bucket Policies.
+D. All of the above
+
+Question #17Topic 1
+The AWS IT infrastructure that AWS provides, complies with the following IT security standards, including:
+A. SOC 1/SSAE 16/ISAE 3402 (formerly SAS 70 Type II), SOC 2 and SOC 3
+B. FISMA, DIACAP, and FedRAMP
+C. PCI DSS Level 1, ISO 27001, ITAR and FIPS 140-2
+D. HIPAA, Cloud Security Alliance (CSA) and Motion Picture Association of America (MPAA)
+E. All of the above
+
+Question #18Topic 1
+Auto Scaling requests are signed with a _________ signature calculated from the request and the users private key.
+A. SSL
+B. AES-256
+C. HMAC-SHA1
+D. X.509
+
+Question #19Topic 1
+The following policy can be attached to an IAM group. It lets an IAM user in that group access a "home directory" in AWS S3 that matches their user name using the console.
+{
+"Version": "2012-10-17",
+"Statement": [
+{
+"Action": ["s3:*"],
+"Effect": "Allow",
+"Resource": ["arn:aws:s3:::bucket-name"],
+"Condition":{"StringLike":{"s3:prefix":["home/${aws:username}/*"]}}
+},
+{
+"Action":["s3:*"],
+"Effect":"Allow",
+"Resource": ["arn:aws:s3:::bucket-name/home/${aws:username}/*"]
+}
+]
+}
+A. True
+B. False
+
+Question #20Topic 1
+What does elasticity mean to AWS?
+A. The ability to scale computing resources up easily, with minimal friction and down with latency.
+B. The ability to scale computing resources up and down easily, with minimal friction.
+C. The ability to provision cloud computing resources in expectation of future demand.
+D. The ability to recover from business continuity events with minimal friction.

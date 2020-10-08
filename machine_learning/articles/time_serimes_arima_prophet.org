@@ -1,3 +1,18 @@
-#+TITLE: Time_serimes_arima_prophet
+#+TITLE: Time Series
+
+
+* Time Series Forecasting: ARIMA vs LSTM vs  Prophet
 
 [[https://medium.com/analytics-vidhya/time-series-forecasting-arima-vs-lstm-vs-prophet-62241c203a3b][Link]]
+
+[[https://github.com/mdipietro09/DataScience_ArtificialIntelligence_Utils/blob/master/time_series/example_forecast.ipynb][Notebook]]
+
+ts_utils.py - [[https://github.com/mdipietro09/DataScience_ArtificialIntelligence_Utils/tree/master/time_series][code]]
+
+
+* [[https://mlcourse.ai/articles/topic9-part2-prophet/][Topic 9 - Time Series Analysis in Python]]
+
+
+* [[https://github.com/alan-turing-institute/sktime][sktime]]
+
+[[https://www.youtube.com/watch?v=wqQKFu41FIw&t=209s][Intro to ML with Time Series]]
