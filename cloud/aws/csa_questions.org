@@ -318,6 +318,8 @@ B. No, if the cache node fails you can always get the same data from the DB with
 C. No, if the cache node fails the automated ElastiCache node recovery feature will prevent any availability impact.
 D. Yes, you should deploy the Memcached ElastiCache Cluster with two nodes in the same AZ as the RDS
 
+   ANS: A, or DynamoDB DAX
+
 ** Question #14
 An ERP application is deployed across multiple AZs in a single region. In the event of failure, the Recovery
 Time Objective (RTO) must be less than 3 hours, and the Recovery Point Objective (RPO) must be 15 minutes. The customer realizes that data corruption occurred roughly 1.5 hours ago.
@@ -327,7 +329,13 @@ B. Use synchronous database master-slave replication between two availability zo
 C. Take hourly DB backups to EC2 Instance store volumes with transaction logs stored In S3 every 5 minutes.
 D. Take 15 minute DB backups stored In Glacier with transaction logs stored in S3 every 5 minutes.
 
-Question #15Topic 1
+   ANS: A
+
+Amazon RDS Backup and Restore
+By default, Amazon RDS creates and saves automated backups of your DB instance securely in Amazon S3 for a user-specified retention period. In addition, you can create snapshots, which are user-initiated backups of your instance that are kept until you explicitly delete them.
+
+** Question #15
+
 You are designing the network infrastructure for an application server in Amazon VPC. Users will access all application instances from the Internet, as well as from an on-premises network. The on-premises network is connected to your VPC over an AWS Direct Connect link.
 How would you design routing to meet the above requirements?
 A. Configure a single routing table with a default route via the Internet gateway. Propagate a default route via BGP on the AWS Direct Connect customer router. Associate the routing table with all VPC subnets.
@@ -335,7 +343,9 @@ B. Configure a single routing table with a default route via the Internet gatewa
 C. Configure a single routing table with two default routes: on to the Internet via an Internet gateway, the other to the on-premises network via the VPN gateway. Use this routing table across all subnets in the VPC.
 D. Configure two routing tables: on that has a default router via the Internet gateway, and other that has a
 
-Question #16Topic 1
+    ANS:
+
+** Question #16
 You control access to S3 buckets and objects with:
 A. Identity and Access Management (IAM) Policies.
 B. Access Control Lists (ACLs).
