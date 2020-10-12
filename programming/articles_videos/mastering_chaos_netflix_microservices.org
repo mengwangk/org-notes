@@ -1,0 +1,32 @@
+#+TITLE: [[https://www.youtube.com/watch?v=CZ3wIuvmHeM&t=2859s][Mastering Chaos - A Netflix Guide to Microservices]]
+#+AUTHOR: mengwangk
+
+* Introduction
+
+** 86 milliones members....
+
+** microservices on AWS
+
+* Microservices Basics
+
+** monolitic code base - single code base
+
+** monolithic database
+
+** tightly coupled
+
+** the microservice architectural style is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanism, often an HTTP resource API. - Martin Fowler
+
+** An evoluationary reponse
+
+*** separaation of concerns - modularity, encapsulation
+
+*** scalability - horizontally scaling, workload partitioning
+
+*** virtualization & elasticity - automated operations, on demand provisioning
+
+***
+
+* Challenges & Solutions
+
+* Organization & Architecture

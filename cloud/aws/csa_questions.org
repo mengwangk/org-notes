@@ -343,31 +343,61 @@ B. Configure a single routing table with a default route via the Internet gatewa
 C. Configure a single routing table with two default routes: on to the Internet via an Internet gateway, the other to the on-premises network via the VPN gateway. Use this routing table across all subnets in the VPC.
 D. Configure two routing tables: on that has a default router via the Internet gateway, and other that has a
 
-    ANS:
+    ANS: B
+
+    A: propagating default route would cause conflict
+    C: there cannot be 2 default routes
+    D: subnet should have a single routing table associated with them
 
 ** Question #16
+
 You control access to S3 buckets and objects with:
 A. Identity and Access Management (IAM) Policies.
 B. Access Control Lists (ACLs).
 C. Bucket Policies.
 D. All of the above
 
-Question #17Topic 1
+ANS: D
+
+** Question #17
+
 The AWS IT infrastructure that AWS provides, complies with the following IT security standards, including:
+
 A. SOC 1/SSAE 16/ISAE 3402 (formerly SAS 70 Type II), SOC 2 and SOC 3
 B. FISMA, DIACAP, and FedRAMP
 C. PCI DSS Level 1, ISO 27001, ITAR and FIPS 140-2
 D. HIPAA, Cloud Security Alliance (CSA) and Motion Picture Association of America (MPAA)
 E. All of the above
 
-Question #18Topic 1
+ANS: E
+
+http://d0.awsstatic.com/whitepapers/compliance/AWS_Risk_and_Compliance_Whitepaper.pdf
+http://jayendrapatil.com/aws-security-whitepaper-overview/
+
+** Question #18
+
 Auto Scaling requests are signed with a _________ signature calculated from the request and the users private key.
 A. SSL
 B. AES-256
 C. HMAC-SHA1
 D. X.509
 
-Question #19Topic 1
+ANS: C
+
+https://docs.aws.amazon.com/whitepapers/latest/aws-overview/security-and-compliance.html
+
+https://d1.awsstatic.com/whitepapers/Security/Security_Compute_Services_Whitepaper.pdf
+ike all AWS services, Auto Scaling requires that every request made to its control API be authenticated so only authenticated users can access and manage Auto Scaling. Requests are signed with an HMAC-SHA1 signature calculated from the request and the user’s private key.
+
+SSL:Transport
+AES-256:Encryption
+X.509:Certificate
+HMAC-SHA1:AutoScaling
+
+AWS4-HMAC-SHA256
+
+** Question #19
+
 The following policy can be attached to an IAM group. It lets an IAM user in that group access a "home directory" in AWS S3 that matches their user name using the console.
 {
 "Version": "2012-10-17",
@@ -388,9 +418,55 @@ The following policy can be attached to an IAM group. It lets an IAM user in tha
 A. True
 B. False
 
-Question #20Topic 1
+  ANS: B
+
+  https://aws.amazon.com/blogs/security/writing-iam-policies-grant-access-to-user-specific-folders-in-an-amazon-s3-bucket/
+  https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_s3_home-directory-console.html
+
+  B is correct (s3:ListAllMyBuckets, s3:GetBucketLocation need to Resource *)
+
+** Question #20
+
 What does elasticity mean to AWS?
+
 A. The ability to scale computing resources up easily, with minimal friction and down with latency.
 B. The ability to scale computing resources up and down easily, with minimal friction.
 C. The ability to provision cloud computing resources in expectation of future demand.
 D. The ability to recover from business continuity events with minimal friction.
+
+   ANS: B
+
+** Question #21
+
+The following are AWS Storage services? Choose 2 Answers
+
+A. AWS Relational Database Service (AWS RDS)
+B. AWS ElastiCache
+C. AWS Glacier
+D. AWS Import/Export
+
+   ANS: CD
+
+   https://aws.amazon.com/products/storage/
+
+** Question #22
+
+How is AWS readily distinguished from other vendors in the traditional IT computing landscape?
+
+A. Experienced. Scalable and elastic. Secure. Cost-effective. Reliable
+B. Secure. Flexible. Cost-effective. Scalable and elastic. Global
+C. Secure. Flexible. Cost-effective. Scalable and elastic. Experienced
+D. Flexible. Cost-effective. Dynamic. Secure. Experienced.
+
+   ANS: C
+
+   http://awsmedia.s3.amazonaws.com/AWS_Overview_Whitepaper_120809.pdf
+
+
+    The Differences That Distinguish AWS
+    AWS provides unique characteristics among all vendors in the cloud computing landscape, including:
+    • Flexible
+    • Cost Effective
+    • Scalable and Elastic
+    • Secure
+    • Experienced
