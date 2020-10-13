@@ -9,7 +9,7 @@
 
 * Microservices Basics
 
-** monolitic code base - single code base
+** monolithic code base - single code base
 
 ** monolithic database
 
@@ -19,14 +19,173 @@
 
 ** An evoluationary reponse
 
-*** separaation of concerns - modularity, encapsulation
+*** separation of concerns - modularity, encapsulation
 
 *** scalability - horizontally scaling, workload partitioning
 
 *** virtualization & elasticity - automated operations, on demand provisioning
 
-***
+*** microservices are an abstraction
+
+**** provides client library for access
 
 * Challenges & Solutions
 
+** Dependency
+
+*** intra-services requests
+
+*** crossing the chasm
+ * network latency, congestionk failure.
+ * logical or scaling failure
+
+*** cascading failure
+
+*** Hystrix - defend your app. Now [[https://github.com/resilience4j/resilience4j][resilience4j]]
+
+*** How do you know if it works
+
+**** inoculation
+
+**** Fault injection testing (FIT)
+
+***** synthetic transactions
+
+***** override by device or account
+
+***** % of live traffic up to 100%
+
+***** Enforced throughput the call path
+
+**** Constrained testing scope
+
+***** combinatorial math = 99.99 ^10 = 99.9
+
+***** critical microservices - create a group for these services
+
+**** Client Libraries
+
+***** many clients
+
+***** common biz logic
+
+***** common access pattern
+
+***** Return of the monolithic - parasitic infestation
+****** heap consumption
+****** logical defects
+****** transitive depencencies
+***** Simple logic, common patterns
+**** Persistence - CAP Theorem - in the presence of a network partition, you must choose between consistency and availability
+***** Eventual consistency - Cassandra
+*****
+**** Infrastructure
+***** Everything fails - US East 1 fails
+***** Multi regions
+** Scale
+*** Stateless services
+**** not a cache or a database
+**** frequently accessed metadata
+**** no instance affinity
+**** loss a node is a non-event
+**** auto scaling groups - compute efficiency, node failure, traffic spikes, performance bugs, DDOS, etc.
+**** surviving instance failure - chaos engineering
+*** Stateful services
+**** databases & caches
+**** custom apps which hold large amount of data
+**** loss of a noe is a notable event
+**** dedicated shards - An Antipattern
+***** redundancy is fundamental
+***** EVCache Writes - wrapper around memcached - spread to different partitions on write
+*** Hybrid services
+**** Evcache - 30 millions requests/sec, 2 trillions requests per day globally...
+**** Excessive Load - called by many services, online & offline clients, called many times/request, 800k-1M RPS
+**** Fallback to service/db - anti pattern
+**** Solutions
+***** workload partitioning - online and offline
+***** request-level caching
+***** secure token fallback
+***** chaos under load
+** Variance
+*** operational drift
+**** unintentional variance
+**** over time
+***** alert thresholds
+***** timeout, retrieve, fallbacks
+***** throughput (RPS)
+**** Across kicroservices
+***** reliability best practices
+**** autonomic nervous system - you don't have to think about digestion or breathing
+**** continous learning & automation
+***** incident -> resolution -> review ->remediation -> analysis -> best practice -> automation -> adoption
+**** Production ready - with automation
+***** alerts
+***** apache & tomcat
+***** automated canary analysis
+***** autoscaling
+***** chaos
+***** consistent naming
+***** ELB config
+***** health check
+***** immutable machine images
+***** squeeze testing
+***** staged, red/black deployments
+***** timeouts, retries, fallbacks
+*** polyglot & containers
+**** intentional variance - introducing new technologies
+**** paved road - stash, nebula/gradle, BaseAMI/Ubuntu, Jenkins, Spinnaker, Runtime Platform
+**** python - ops work, nodejs, docker, ruby
+**** in the critical path...
+**** Cost of variance
+***** productivity tooling
+***** insight & triage capabilities
+***** base image fragmentation
+***** node management
+***** library/platform duplication
+***** learning curve - production experties
+***** proliferation of paved roads
+**** Strategic Stance
+***** raise awareness of costs
+***** constrain cnetralized support
+***** proritize by impace
+***** seek reusable solutions
+** Change
+*** how to achieve velocity with confidence?
+*** global cloud mgmt & delivery - Spinnaker
+**** integrated, automated practices
+**** conformity checks, red/black pipelines, automated canaries, staged deployments, squeeze tests
 * Organization & Architecture
+** Electronic delivery - NRDP 1.x
+** Hybrid architecture - REST, RPC/XML
+** Long term architcture
+** Conway's Law - organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations.
+*** Any piece of software reflects the organizational structure that produced it.
+** Organization first, architecture next
+** Outcojes & Lessons
+*** Outcomes
+**** productivity & new capabilities
+**** refactored organization
+*** Lessons
+**** solutions first, team second
+**** reconfigure teams to best support your architecture
+* Summary
+*** Microservice architectures are complex and organic
+*** Health depends on discipline and chaos
+*** Dependency
+**** circuit breakers, fallbacks, chaos
+**** simple clients
+**** eventual consistency
+**** multi-region failover
+*** Scale
+**** auto-scaling
+**** redundancy - avoid SPoF
+**** partitioned workloads
+**** failure-driven design
+**** chaos under load
+*** Variance
+**** engineered operations
+**** understood cost of variance
+**** prioritized support by impact
+*** Change
+**** automated delivery
+**** integrated practices
