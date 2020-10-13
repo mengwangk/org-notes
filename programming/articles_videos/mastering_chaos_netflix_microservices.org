@@ -161,7 +161,7 @@
 ** Conway's Law - organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations.
 *** Any piece of software reflects the organizational structure that produced it.
 ** Organization first, architecture next
-** Outcojes & Lessons
+** Outcomes & Lessons
 *** Outcomes
 **** productivity & new capabilities
 **** refactored organization
