@@ -470,3 +470,90 @@ D. Flexible. Cost-effective. Dynamic. Secure. Experienced.
     • Scalable and Elastic
     • Secure
     • Experienced
+
+** Question #23
+
+You have launched an EC2 instance with four (4) 500 GB EBS Provisioned IOPS
+volumes attached. The EC2 instance is EBS-Optimized and supports 500 Mbps
+throughput between EC2 and EBS. The four EBS volumes are configured as a single
+RAID 0 device, and each Provisioned IOPS volume is provisioned with 4,000 IOPS
+(4,000 16KB reads or writes), for a total of 16,000 random IOPS on the instance.
+The EC2 instance initially delivers the expected 16,000 IOPS random read and
+write performance. Sometime later, in order to increase the total random I/O
+performance of the instance, you add an additional two 500 GB EBS Provisioned
+IOPS volumes to the RAID. Each volume is provisioned to 4,000 IOPs like the
+original four, for a total of 24,000 IOPS on the EC2 instance. Monitoring shows
+that the EC2 instance CPU utilization increased from 50% to 70%, but the total
+random IOPS measured at the instance level does not increase at all.  What is
+the problem and a valid solution?
+A. The EBS-Optimized throughput limits the total IOPS that can be utilized; use an EBSOptimized instance that provides larger throughput.
+B. Small block sizes cause performance degradation, limiting the I/O throughput; configure the instance device driver and filesystem to use 64KB blocks to increase throughput.
+C. The standard EBS Instance root volume limits the total IOPS rate; change the instance root volume to also be a 500GB 4,000 Provisioned IOPS volume.
+D. Larger storage volumes support higher Provisioned IOPS rates; increase the provisioned volume storage of each of the 6 EBS volumes to 1TB.
+E. RAID 0 only scales linearly to about 4 devices; use RAID 0 with 4 EBS Provisioned IOPS volumes, but
+
+   ANS: A
+
+   https://jayendrapatil.com/aws-ebs-performance/
+   https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html
+
+*** Question #24
+Your company is storing millions of sensitive transactions across thousands of 100-GB files that must be encrypted in transit and at rest. Analysts concurrently depend on subsets of files, which can consume up to 5
+TB of space, to generate simulations that can be used to steer business decisions.
+You are required to design an AWS solution that can cost effectively accommodate the long-term storage and in-flight subsets of data.
+Which approach can satisfy these objectives?
+A. Use Amazon Simple Storage Service (S3) with server-side encryption, and run simulations on subsets in ephemeral drives on Amazon EC2.
+B. Use Amazon S3 with server-side encryption, and run simulations on subsets in-memory on Amazon EC2.
+C. Use HDFS on Amazon EMR, and run simulations on subsets in ephemeral drives on Amazon EC2.
+D. Use HDFS on Amazon Elastic MapReduce (EMR), and run simulations on subsets in-memory on Amazon Elastic Compute Cloud (EC2).
+E. Store the full data set in encrypted Amazon Elastic Block Store (EBS) volumes, and regularly capture
+
+Question #25Topic 1
+Your customer is willing to consolidate their log streams (access logs, application logs, security logs, etc.) in one single system. Once consolidated, the customer wants to analyze these logs in real time based on heuristics. From time to time, the customer needs to validate heuristics, which requires going back to data samples extracted from the last 12 hours.
+What is the best approach to meet your customers requirements?
+A. Send all the log events to Amazon SQS, setup an Auto Scaling group of EC2 servers to consume the logs and apply the heuristics.
+B. Send all the log events to Amazon Kinesis, develop a client process to apply heuristics on the logs
+C. Configure Amazon CloudTrail to receive custom logs, use EMR to apply heuristics the logs
+D. Setup an Auto Scaling group of EC2 syslogd servers, store the logs on S3, use EMR to apply heuristics on the logs
+
+Question #26Topic 1
+A newspaper organization has an on-premises application which allows the public to search its back catalogue and retrieve individual newspaper pages via a website written in Java. They have scanned the old newspapers into JPEGs (approx 17TB) and used Optical Character Recognition (OCR) to populate a commercial search product. The hosting platform and software are now end of life and the organization wants to migrate Its archive to AWS and produce a cost efficient architecture and still be designed for availability and durability.
+Which is the most appropriate?
+A. Use S3 with reduced redundancy lo store and serve the scanned files, install the commercial search application on EC2 Instances and configure with auto-scaling and an Elastic Load Balancer.
+B. Model the environment using CloudFormation use an EC2 instance running Apache webserver and an open source search application, stripe multiple standard EBS volumes together to store the JPEGs and search index.
+C. Use S3 with standard redundancy to store and serve the scanned files, use CloudSearch for query processing, and use Elastic Beanstalk to host the website across multiple availability zones.
+D. Use a single-AZ RDS MySQL instance lo store the search index 33d the JPEG images use an EC2 instance to serve the website and translate user queries into SQL.
+E. Use a CloudFront download distribution to serve the JPEGs to the end users and Install the current commercial search product, along with a Java Container Tor the website on EC2 instances and use
+
+Question #27Topic 1
+Your company has recently extended its datacenter into a VPC on AVVS to add burst computing capacity as needed Members of your Network Operations Center need to be able to go to the AWS Management Console and administer Amazon EC2 instances as necessary You don't want to create new IAM users for each NOC member and make those users sign in again to the AWS Management Console.
+Which option below will meet the needs for your NOC members?
+A. Use OAuth 2 0 to retrieve temporary AWS security credentials to enable your NOC members to sign in to the AWS Management Console.
+B. Use web Identity Federation to retrieve AWS temporary security credentials to enable your NOC members to sign in to the AWS Management Console.
+C. Use your on-premises SAML 2.0-compliant identity provider (IDP) to grant the NOC members federated access to the AWS Management Console via the AWS single sign-on (SSO) endpoint.
+D. Use your on-premises SAML 2.0-compliam identity provider (IDP) to retrieve temporary security credentials
+
+Question #28Topic 1
+You are looking to migrate your Development (Dev) and Test environments to AWS. You have decided to use separate AWS accounts to host each environment. You plan to link each accounts bill to a Master AWS account using Consolidated Billing. To make sure you keep within budget you would like to implement a way for administrators in the Master account to have access to stop, delete and/or terminate resources in both the
+Dev and Test accounts.
+Identify which option will allow you to achieve this goal.
+A. Create IAM users in the Master account with full Admin permissions. Create cross-account roles in the Dev and Test accounts that grant the Master account access to the resources in the account by inheriting permissions from the Master account.
+B. Create IAM users and a cross-account role in the Master account that grants full Admin permissions to the Dev and Test accounts.
+C. Create IAM users in the Master account. Create cross-account roles in the Dev and Test accounts that have full Admin permissions and grant the Master account access.
+D. Link the accounts using Consolidated Billing. This will give IAM users in the Master account access to
+
+Question #29Topic 1
+You're running an application on-premises due to its dependency on non-x86 hardware and want to use AWS for data backup. Your backup application is only able to write to POSIX-compatible block-based storage. You have 140TB of data and would like to mount it as a single folder on your file server. Users must be able to access portions of this data while the backups are taking place.
+What backup solution would be most appropriate for this use case?
+A. Use Storage Gateway and configure it to use Gateway Cached volumes.
+B. Configure your backup software to use S3 as the target for your data backups.
+C. Configure your backup software to use Glacier as the target for your data backups.
+D. Use Storage Gateway and configure it to use Gateway Stored volumes.
+
+Question #30Topic 1
+To serve Web traffic for a popular product your chief financial officer and IT director have purchased 10 m1.large heavy utilization Reserved Instances (RIs), evenly spread across two availability zones; Route 53 is used to deliver the traffic to an Elastic Load Balancer (ELB). After several months, the product grows even more popular and you need additional capacity. As a result, your company purchases two C3.2xlarge medium utilization Ris. You register the two c3.2xlarge instances with your ELB and quickly find that the m1.large instances are at 100% of capacity and the c3.2xlarge instances have significant capacity that's unused.
+Which option is the most cost effective and uses EC2 capacity most effectively?
+A. Configure Autoscaling group and Launch Configuration with ELB to add up to 10 more on-demand m1.large instances when triggered by Cloudwatch. Shut off c3.2xlarge instances.
+B. Configure ELB with two c3.2xlarge instances and use on-demand Autoscaling group for up to two additional c3.2xlarge instances. Shut off m1.large instances.
+C. Route traffic to EC2 m1.large and c3.2xlarge instances directly using Route 53 latency based routing and health checks. Shut off ELB.
+D. Use a separate ELB for each instance type and distribute load to ELBs with Route 53 weighted round

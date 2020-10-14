@@ -1,0 +1,197 @@
+#+TITLE:  [[https://www.youtube.com/watch?v=j6ow-UemzBc][Design Microservice Architectures the Right Way]]
+
+* Great Architecture
+
+* Misconception # 1 - Microservices enable our teams to choose best programming languages and framework for their tasks
+
+** Reality - we'll demonstrate just how expensive this is. Team size and investment are critical inputs.
+
+* Misconception #2 - Code generation is evil
+
+** Reality - what's important is creating a defined schema that is 100% trusted.
+
+* Misconception #3 - The event log must be the source of truth.
+
+** Reality - events are critical part of an interface. But it's okay for services to be the system of record for their resources.
+
+* Misconception #4 - Developers can maintain no more than 3 services each
+
+** Reality - wrong metric; demonstrate where automation shines.
+
+* Linter on API definitions
+
+** Tests enforce consistency
+
+* Tests Prevent Errors
+
+** Is APIs breaking?
+
+* Code Generation: Routes
+
+* Code Generation; Mock Client
+
+* Database architecture
+
+** each micro service application owns its database
+
+** no other service is allowed to connect to the database
+
+** other services use only the service interface (API + Events)
+
+* Define storage requirements in metadata
+
+** Code generation: Create a table
+
+*** hash code
+
+*** null vs empty check
+
+*** Code generation: Scala Class
+
+**** normalize access to DB
+
+**** ensure proper indexes exist from start
+
+* Automated Tests
+
+** use the generated mock client
+
+** use the generated mock clients to write simple tests
+
+* Time to deploy
+
+** Continuous delivery is a prerequisite to managing micro service architectures
+
+** Cont. Delivery
+
+*** deployed triggered by a git tag
+
+*** git tag created automatically by a change on master (e.g. merge PR)
+
+*** 100% automated, 100% reliable
+
+** Continuous Delivery is Critical
+
+** Auto deploy on new commit on Master
+
+** Microservice infrastructure - Keep it simple
+
+** Standard health checks
+
+* Events
+
+** We have an amazing API, but please subscribe to our event streams instead.
+
+** Principles of an Event Interface
+
+*** first class schema for all events
+
+*** producers guarantee at least once delivery
+
+*** Consumers implement idempotency
+
+*** Flow
+
+**** end to end single event latency ~500ms
+
+**** based on postgresql - scaled to ~1B events/day/service
+
+**** binary format, e.g. gRPC great, swagger - terribe. Force developer to use code generation
+
+*** Producers
+
+**** create a journal of ALL operations on table
+
+**** record operation (insert, update, delete)
+
+**** on creation, queue the journal record to be published
+
+**** real time, async, we publish 1 event per journal record
+
+**** enable replay by simply requeuing journal record
+
+*** Consumers
+
+**** store new events in local database, partitioned for fast removal
+
+**** On event arrival, queue record to be consumed
+
+**** process incoming events in micro batches (by default every 250ms)
+
+**** record failures locally
+
+*** Events: Scheam First
+
+**** 1 model/event
+
+**** N events in 1 union type
+
+**** 1 union type/stream
+
+**** stream owned by 1 service
+
+**** most services define exactly 1 stream
+
+*** Producers: Database Journal
+
+**** document retention period
+
+**** code generate journal
+
+**** use partitions to manage storage
+
+*** Producers: Streams
+
+**** reflection used to generate stream name
+
+*** Producers: Testing
+
+*** Consumers: Processing Incoming Events
+
+*** Consumers: Testing
+
+* Dependencies: Keeping things up to date
+
+** Goal: automatically update all services to latest dependencies
+
+*** critical for security patches/bug fixes in core libraries
+
+*** take hours (not weeks or month)
+
+*** same process for internally developed libraries and open source
+
+*** Flow: we upgrade all services every week to latest dependencies
+
+https://github.com/flowcommerce
+https://github.com/flowcommerce/dependency
+
+*** Deploy once the build pass
+
+* SUMMARY: Critical Decisions
+
+** Design schema first for all APIs and Events
+
+*** consume events (not API) by default
+
+** Invest in automation
+
+*** deployment, code generation, dependency management
+
+** Enable teams to write amazing and simple tests
+
+*** drives quality, streamlines maintenance, enables continous delivery
+
+
+https://www.youtube.com/watch?v=X0tjziAQfNQ
+
+10) Tooling - Prefer one well-established tech stack. Too many tools often result in unintended complexity across the board.
+9) Data Ownership - Prefer separate databases or schemas for each micro-service to keep clear table ownership.
+8) Event Sourcing - Research whether you actually need it and design carefully.
+7) Coupling - Beware dependency versions and shared libraries (especially in-house ones). Microservices are often more coupled than we realize.
+6) Automation - Use CI/CD and automate your processes. Keep in mind that everything "hand-crafted" complicates your infrastructure.
+5) Failure - Design for failure. It's a distributed, networked environment. And, again, avoid making a highly coupled microservice monolith monstrosity that fails simultaneously
+.
+4) FE Responsibilities - Have clear responsibilities. Associate certain frontend pages with certain APIs so that you know what microservice is responsible when something fails.
+3) Tooling - Having a few well-defined tools is a virtue; but, remain open to clearly better tools. Let teams use what works best on their project.
+2) Design - Model your services around the company's domain and make sure management is aware of the high-level architecture.
+1) Communication - Communication between teams is a must. Have someone that understands how everything works together and what different teams are responsible for.
