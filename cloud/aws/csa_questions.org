@@ -486,7 +486,7 @@ original four, for a total of 24,000 IOPS on the EC2 instance. Monitoring shows
 that the EC2 instance CPU utilization increased from 50% to 70%, but the total
 random IOPS measured at the instance level does not increase at all.  What is
 the problem and a valid solution?
-A. The EBS-Optimized throughput limits the total IOPS that can be utilized; use an EBSOptimized instance that provides larger throughput.
+A. The EBS-Optimized throughput limits the total IOPS that can be utilized; use an EBS Optimized instance that provides larger throughput.
 B. Small block sizes cause performance degradation, limiting the I/O throughput; configure the instance device driver and filesystem to use 64KB blocks to increase throughput.
 C. The standard EBS Instance root volume limits the total IOPS rate; change the instance root volume to also be a 500GB 4,000 Provisioned IOPS volume.
 D. Larger storage volumes support higher Provisioned IOPS rates; increase the provisioned volume storage of each of the 6 EBS volumes to 1TB.
@@ -497,43 +497,127 @@ E. RAID 0 only scales linearly to about 4 devices; use RAID 0 with 4 EBS Provisi
    https://jayendrapatil.com/aws-ebs-performance/
    https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html
 
-*** Question #24
-Your company is storing millions of sensitive transactions across thousands of 100-GB files that must be encrypted in transit and at rest. Analysts concurrently depend on subsets of files, which can consume up to 5
-TB of space, to generate simulations that can be used to steer business decisions.
-You are required to design an AWS solution that can cost effectively accommodate the long-term storage and in-flight subsets of data.
-Which approach can satisfy these objectives?
+** Question #24
+
+Your company is storing millions of sensitive transactions across thousands of
+100-GB files that must be encrypted in transit and at rest. Analysts
+concurrently depend on subsets of files, which can consume up to 5 TB of space,
+to generate simulations that can be used to steer business decisions.  You are
+required to design an AWS solution that can cost effectively accommodate the
+long-term storage and in-flight subsets of data.  Which approach can satisfy
+these objectives?
+
 A. Use Amazon Simple Storage Service (S3) with server-side encryption, and run simulations on subsets in ephemeral drives on Amazon EC2.
 B. Use Amazon S3 with server-side encryption, and run simulations on subsets in-memory on Amazon EC2.
 C. Use HDFS on Amazon EMR, and run simulations on subsets in ephemeral drives on Amazon EC2.
 D. Use HDFS on Amazon Elastic MapReduce (EMR), and run simulations on subsets in-memory on Amazon Elastic Compute Cloud (EC2).
 E. Store the full data set in encrypted Amazon Elastic Block Store (EBS) volumes, and regularly capture
 
-Question #25Topic 1
-Your customer is willing to consolidate their log streams (access logs, application logs, security logs, etc.) in one single system. Once consolidated, the customer wants to analyze these logs in real time based on heuristics. From time to time, the customer needs to validate heuristics, which requires going back to data samples extracted from the last 12 hours.
-What is the best approach to meet your customers requirements?
+   ANS:
+
+   the answer needs to cost effectively accommodate the long-term storage and in-flight subsets of data. According to https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-file-systems.html HDFS is used by the master and core nodes. One advantage is that it's fast; a disadvantage is that it's ephemeral storage which is reclaimed when the cluster ends. It's best used for caching the results produced by intermediate job-flow steps. Hence C and D are not valid options. Since B would require a High Memory instance and there is no mention of encryption only valid option would be A.
+
+   Answer is A
+    B: 5TB is out of memory
+    C: EBS Volume in EMR clusters is ephemeral, we can't use this for long time storage purpose
+    D: 5TB is out of memory
+    E: Not cost effective
+
+** Question #25
+
+Your customer is willing to consolidate their log streams (access logs,
+application logs, security logs, etc.) in one single system. Once consolidated,
+the customer wants to analyze these logs in real time based on heuristics. From
+time to time, the customer needs to validate heuristics, which requires going
+back to data samples extracted from the last 12 hours.  What is the best
+approach to meet your customers requirements?
+
 A. Send all the log events to Amazon SQS, setup an Auto Scaling group of EC2 servers to consume the logs and apply the heuristics.
 B. Send all the log events to Amazon Kinesis, develop a client process to apply heuristics on the logs
 C. Configure Amazon CloudTrail to receive custom logs, use EMR to apply heuristics the logs
 D. Setup an Auto Scaling group of EC2 syslogd servers, store the logs on S3, use EMR to apply heuristics on the logs
 
-Question #26Topic 1
+    ANS: B
+
+The throughput of an Amazon Kinesis stream is designed to scale without
+limits via increasing the number of shards within a stream. However, there are
+certain limits you should keep in mind while using Amazon Kinesis Streams: By
+default, of a stream are accessible for up to 24 hours from the time they are
+added to the stream.  You can raise this limit to up to 7 days by enabling
+extended data retention.
+
+The maximum size of a - data blob (the data payload before Base64-encoding)
+within one record is 1 megabyte (MB).
+
+Each - shard can support up to 1000 PUT records per second.  For more
+information about other API level limits, see
+
+Amazon Kinesis Streams Limits -
+
+** Question #26
+
 A newspaper organization has an on-premises application which allows the public to search its back catalogue and retrieve individual newspaper pages via a website written in Java. They have scanned the old newspapers into JPEGs (approx 17TB) and used Optical Character Recognition (OCR) to populate a commercial search product. The hosting platform and software are now end of life and the organization wants to migrate Its archive to AWS and produce a cost efficient architecture and still be designed for availability and durability.
 Which is the most appropriate?
+
 A. Use S3 with reduced redundancy lo store and serve the scanned files, install the commercial search application on EC2 Instances and configure with auto-scaling and an Elastic Load Balancer.
 B. Model the environment using CloudFormation use an EC2 instance running Apache webserver and an open source search application, stripe multiple standard EBS volumes together to store the JPEGs and search index.
 C. Use S3 with standard redundancy to store and serve the scanned files, use CloudSearch for query processing, and use Elastic Beanstalk to host the website across multiple availability zones.
 D. Use a single-AZ RDS MySQL instance lo store the search index 33d the JPEG images use an EC2 instance to serve the website and translate user queries into SQL.
 E. Use a CloudFront download distribution to serve the JPEGs to the end users and Install the current commercial search product, along with a Java Container Tor the website on EC2 instances and use
 
-Question #27Topic 1
-Your company has recently extended its datacenter into a VPC on AVVS to add burst computing capacity as needed Members of your Network Operations Center need to be able to go to the AWS Management Console and administer Amazon EC2 instances as necessary You don't want to create new IAM users for each NOC member and make those users sign in again to the AWS Management Console.
-Which option below will meet the needs for your NOC members?
+
+ANS: C
+
+There is no such thing as "Most appropriate" without knowing all your goals. I find your scenarios very fuzzy, since you can obviously mix-n-match between them. I think you should decide by layers instead:
+Load Balancer Layer: ELB or just DNS, or roll-your-own. (Using DNS+EIPs is slightly cheaper, but less reliable than ELB.)
+Storage Layer for 17TB of Images: This is the perfect use case for S3. Off-load all the web requests directly to the relevant JPEGs in S3. Your EC2 boxes just generate links to them.
+If your app already serves it's own images (not links to images), you might start with EFS. But more than likely, you can just setup a web server to re-write or re-direct all JPEG links to S3 pretty easily.
+If you use S3, don't serve directly from the bucket - Serve via a CNAME in domain you control. That way, you can switch in CloudFront easily.
+EBS will be way more expensive, and you'll need 2x the drives if you need 2 boxes. Yuck.
+Consider a smaller storage format. For example, JPEG200 or WebP or other tools might make for smaller images. There is also the DejaVu format from a while back.
+Cache Layer: Adding CloudFront in front of S3 will help people on the other side of the world -- well, possibly.
+Typical archives follow a power law. The long tail of requests means that most JPEGs won't be requested enough to be in the cache. So you are only speeding up the most popular objects. You can always wait, and switch in CF later after you know your costs better. (In some cases, it can actually lower costs.)
+You can also put CloudFront in front of your app, since your archive search results should be fairly static. This will also allow you to run with a smaller instance type, since CF will handle much of the load if you do it right.
+Database Layer: A few options:
+Use whatever your current server does for now, and replace with something else down the road. Don't under- estimate this approach, sometimes it's better to start now and optimize later.
+
+Use RDS to run MySQL/Postgres -
+I'm not as familiar with ElasticSearch / Cloudsearch, but obviously Cloudsearch will be less maintenance
++setup.
+App Layer:
+When creating the app layer from scratch, consider CloudFormation and/or OpsWorks. It's extra stuff to learn, but helps down the road.
+Java+Tomcat is right up the alley of ElasticBeanstalk. (Basically EC2 + Autoscale + ELB).
+Preventing Abuse: When you put something in a public S3 bucket, people will hot-link it from their web pages.
+If you want to prevent that, your app on the EC2 box can generate signed links to S3 that expire in a few hours. Now everyone will be forced to go thru the app, and the app can apply rate limiting, etc.
+Saving money: If you don't mind having downtime:
+run everything in one AZ (both DBs and EC2s). You can always add servers and AZs down the road, as long as it's architected to be stateless. In fact, you should use multiple regions if you want it to be really robust. use Reduced Redundancy in S3 to save a few hundred bucks per month (Someone will have to "go fix it" every time it breaks, including having an off-line copy to repair S3.)
+Buy Reserved Instances on your EC2 boxes to make them cheaper. (Start with the RI market and buy a partially used one to get started.) It's just a coupon saying "if you run this type of box in this AZ, you will save on the per-hour costs." You can get 1/2 to 1/3 off easily.
+Rewrite the application to use less memory and CPU - that way you can run on fewer/smaller boxes. (May or may not be worth the investment.)
+If your app will be used very infrequently, you will save a lot of money by using Lambda. I'd be worried that it would be quite slow if you tried to run a Java application on it though.
+We're missing some information like load, latency expectations from search, indexing speed, size of the search index, etc. But with what you've given us, I would go with S3 as the storage for the files (S3 rocks. It is really, really awesome). If you're stuck with the commercial search application, then on EC2 instances with autoscaling and an ELB. If you are allowed an alternative search engine, Elasticsearch is probably your best bet. I'd run it on EC2 instead of the AWS Elasticsearch service, as IMHO it's not ready yet. Don't autoscale
+Elasticsearch automatically though, it'll cause all sorts of issues. I have zero experience with CloudSearch so ic an't comment on that. Regardless of which option, I'd use CloudFormation for all of it.
+
+** Question #27
+
+Your company has recently extended its datacenter into a VPC on AVVS to add
+burst computing capacity as needed Members of your Network Operations Center
+need to be able to go to the AWS Management Console and administer Amazon EC2
+instances as necessary You don't want to create new IAM users for each NOC
+member and make those users sign in again to the AWS Management Console.  Which
+option below will meet the needs for your NOC members?
+
 A. Use OAuth 2 0 to retrieve temporary AWS security credentials to enable your NOC members to sign in to the AWS Management Console.
 B. Use web Identity Federation to retrieve AWS temporary security credentials to enable your NOC members to sign in to the AWS Management Console.
 C. Use your on-premises SAML 2.0-compliant identity provider (IDP) to grant the NOC members federated access to the AWS Management Console via the AWS single sign-on (SSO) endpoint.
 D. Use your on-premises SAML 2.0-compliam identity provider (IDP) to retrieve temporary security credentials
 
-Question #28Topic 1
+   ANS: C
+   https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KLmqJEu0YYebMtPKMsT/federated-access
+
+   http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-saml.html
+
+** Question #28
+
 You are looking to migrate your Development (Dev) and Test environments to AWS. You have decided to use separate AWS accounts to host each environment. You plan to link each accounts bill to a Master AWS account using Consolidated Billing. To make sure you keep within budget you would like to implement a way for administrators in the Master account to have access to stop, delete and/or terminate resources in both the
 Dev and Test accounts.
 Identify which option will allow you to achieve this goal.
@@ -542,7 +626,42 @@ B. Create IAM users and a cross-account role in the Master account that grants f
 C. Create IAM users in the Master account. Create cross-account roles in the Dev and Test accounts that have full Admin permissions and grant the Master account access.
 D. Link the accounts using Consolidated Billing. This will give IAM users in the Master account access to
 
-Question #29Topic 1
+   ANS: C
+   https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html
+  
+Bucket Owner Granting Cross-account Permission to objects It Does Not Own
+In this example scenario, you own a bucket and you have enabled other AWS accounts to upload objects. That is, your bucket can have objects that other AWS accounts own.
+Now, suppose as a bucket owner, you need to grant cross-account permission on objects, regardless of who the owner is, to a user in another account. For example, that user could be a billing application that needs to access object metadata. There are two core issues:
+The bucket owner has no permissions on those objects created by other AWS accounts. So for the bucket owner to grant permissions on objects it does not own, the object owner, the AWS account that created the objects, must first grant permission to the bucket owner. The bucket owner can then delegate those permissions.
+Bucket owner account can delegate permissions to users in its own account but it cannot delegate permissions to other AWS accounts, because cross-account delegation is not supported.
+In this scenario, the bucket owner can create an AWS Identity and Access Management (IAM) role with permission to access objects, and grant another AWS account permission to assume the role temporarily enabling it to access objects in the bucket.
+Background: Cross-Account Permissions and Using IAM Roles
+IAM roles enable several scenarios to delegate access to your resources, and cross-account access is one of the key scenarios. In this example, the bucket owner, Account A, uses an IAM role to temporarily delegate object access cross-account to users in another AWS account, Account C. Each IAM role you create has two policies attached to it:
+A trust policy identifying another AWS account that can assume the role.
+An access policy defining what permissionsfor example, s3:GetObjectare allowed when someone assumes the role. For a list of permissions you can specify in a policy, see
+Specifying Permissions in a Policy
+.
+The AWS account identified in the trust policy then grants its user permission to assume the role. The user can then do the following to access objects:
+Assume the role and, in response, get temporary security credentials.
+Using the temporary security credentials, access the objects in the bucket.
+For more information about IAM roles, go to
+Roles (Delegation and Federation)
+in IAM User Guide.
+The following is a summary of the walkthrough steps:
+
+Account A administrator user attaches a bucket policy granting Account B conditional permission to upload objects.
+Account A administrator creates an IAM role, establishing trust with Account C, so users in that account can access Account A. The access policy attached to the role limits what user in Account C can do when the user accesses Account A.
+Account B administrator uploads an object to the bucket owned by Account A, granting full-control permission to the bucket owner.
+Account C administrator creates a user and attaches a user policy that allows the user to assume the role.
+User in Account C first assumes the role, which returns the user temporary security credentials. Using those temporary credentials, the user then accesses objects in the bucket.
+For this example, you need three accounts. The following table shows how we refer to these accounts and the administrator users in these accounts. Per IAM guidelines (see
+About Using an Administrator User to Create
+
+Resources and Grant Permissions -
+) we do not use the account root credentials in this walkthrough. Instead, you create an administrator user in each account and use those credentials in creating resources and granting them permissions
+
+** Question #29
+
 You're running an application on-premises due to its dependency on non-x86 hardware and want to use AWS for data backup. Your backup application is only able to write to POSIX-compatible block-based storage. You have 140TB of data and would like to mount it as a single folder on your file server. Users must be able to access portions of this data while the backups are taking place.
 What backup solution would be most appropriate for this use case?
 A. Use Storage Gateway and configure it to use Gateway Cached volumes.
@@ -550,9 +669,13 @@ B. Configure your backup software to use S3 as the target for your data backups.
 C. Configure your backup software to use Glacier as the target for your data backups.
 D. Use Storage Gateway and configure it to use Gateway Stored volumes.
 
-Question #30Topic 1
+   ANS:
+
+** Question #30
+
 To serve Web traffic for a popular product your chief financial officer and IT director have purchased 10 m1.large heavy utilization Reserved Instances (RIs), evenly spread across two availability zones; Route 53 is used to deliver the traffic to an Elastic Load Balancer (ELB). After several months, the product grows even more popular and you need additional capacity. As a result, your company purchases two C3.2xlarge medium utilization Ris. You register the two c3.2xlarge instances with your ELB and quickly find that the m1.large instances are at 100% of capacity and the c3.2xlarge instances have significant capacity that's unused.
 Which option is the most cost effective and uses EC2 capacity most effectively?
+
 A. Configure Autoscaling group and Launch Configuration with ELB to add up to 10 more on-demand m1.large instances when triggered by Cloudwatch. Shut off c3.2xlarge instances.
 B. Configure ELB with two c3.2xlarge instances and use on-demand Autoscaling group for up to two additional c3.2xlarge instances. Shut off m1.large instances.
 C. Route traffic to EC2 m1.large and c3.2xlarge instances directly using Route 53 latency based routing and health checks. Shut off ELB.
