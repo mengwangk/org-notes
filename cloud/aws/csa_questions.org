@@ -789,9 +789,10 @@ B. Use SWF with an Auto Scaling group of activity workers and a decider instance
 C. Use SWF with an Auto Scaling group of activity workers and a decider instance in another Auto Scaling group with min/max=1 use SES to send emails to customers.
 D. Use an SQS queue to manage all process tasks Use an Auto Scaling group of EC2 Instances that poll the
 
-ANS:
+ANS: C
 
 ** Question #33
+
 A read only news reporting site with a combined web and application tier and a database tier that receives large and unpredictable traffic demands must be able to respond to these traffic fluctuations automatically.
 What AWS services should be used meet these requirements?
 A. Stateless instances for the web and application tier synchronized using ElastiCache Memcached in an autoscaimg group monitored with CloudWatch and RDS with read replicas.
@@ -799,7 +800,10 @@ B. Stateful instances for the web and application tier in an autoscaling group m
 C. Stateful instances for the web and application tier in an autoscaling group monitored with CloudWatch and multi-AZ RDS.
 D. Stateless instances for the web and application tier synchronized using ElastiCache Memcached in an
 
-Question #34Topic 1
+   ANS: A
+
+** Question #34
+
 You are designing a photo-sharing mobile app. The application will store all pictures in a single Amazon S3 bucket.
 Users will upload pictures from their mobile device directly to Amazon S3 and will be able to view and download their own pictures directly from Amazon S3.
 You want to configure security to handle potentially millions of users in the most secure manner possible.
@@ -810,10 +814,15 @@ C. Create a set of long-term credentials using AWS Security Token Service with a
 D. Record the user's information in Amazon RDS and create a role in IAM with appropriate permissions. When the user uses their mobile app, create temporary credentials using the AWS Security Token Service "AssumeRole" function. Store these credentials in the mobile apps memory and use them to access Amazon S3. Generate new credentials the next time the user runs the mobile app.
 E. Record the user's information in Amazon DynamoDB. When the user uses their mobile app, create temporary credentials using AWS Security Token Service with appropriate permissions. Store these credentials in the mobile app's memory and use them to access Amazon S3. Generate new credentials the
 
-Question #35Topic 1
+   Ans: D
+   https://acloud.guru/forums/aws-certified-solutions-architect-associate/discussion/-KLmsIhGny5Cw_sl75Qg/rds-vs-dynamodb
+
+** Question #35
+
 You are tasked with moving a legacy application from a virtual machine running inside your datacenter to an
 Amazon VPC. Unfortunately, this app requires access to a number of on-premises services and no one who configured the app still works for your company. Even worse there's no documentation for it.
 What will allow the application running inside the VPC to reach back and access its internal dependencies without being reconfigured? (Choose 3 answers)
+
 A. An AWS Direct Connect link between the VPC and the network housing the internal services.
 B. An Internet Gateway to allow a VPN connection.
 C. An Elastic IP address on the VPC instance
@@ -821,7 +830,54 @@ D. An IP address space that does not conflict with the one on-premises
 E. Entries in Amazon Route 53 that allow the Instance to resolve its dependencies' IP addresses
 F. A VM Import of the current virtual machine
 
-Question #36Topic 1
+   Ans: A, D, F
+
+   AWS Direct Connect -
+AWS Direct Connect makes it easy to establish a dedicated network connection from your premises to AWS.
+Using AWS Direct Connect, you can establish private connectivity between AWS and your datacenter, office, or collocation environment, which in many cases can reduce your network costs, increase bandwidth throughput, and provide a more consistent network experience than Internet-based connections.
+AWS Direct Connect lets you establish a dedicated network connection between your network and one of the
+AWS Direct Connect locations. Using industry standard 802.1q VLANs, this dedicated connection can be partitioned into multiple virtual interfaces. This allows you to use the same connection to access public resources such as objects stored in Amazon S3 using public IP address space, and private resources such as
+Amazon EC2 instances running within an
+Amazon Virtual Private Cloud (VPC)
+using private IP space, while
+maintaining network separation between the public and private environments. Virtual interfaces can be reconfigured at any time to meet your changing needs.
+What is AWS Direct Connect?
+AWS Direct Connect links your internal network to an AWS Direct Connect location over a standard 1 gigabit or 10 gigabit Ethernet fiber-optic cable. One end of the cable is connected to your router, the other to an AWS
+Direct Connect router. With this connection in place, you can create virtual interfaces directly to the AWS cloud
+(for example, to Amazon Elastic Compute Cloud (Amazon EC2) and Amazon Simple Storage Service
+(Amazon S3) and to Amazon Virtual Private Cloud (Amazon VPC), bypassing Internet service providers in your network path. An AWS Direct Connect location provides access to Amazon Web Services in the region it is associated with, as well as access to other US regions. For example, you can provision a single connection to any AWS Direct Connect location in the US and use it to access public AWS services in all US Regions and
+AWS GovCloud (US).
+The following diagram shows how AWS Direct Connect interfaces with your network.
+
+
+Requirements -
+To use AWS Direct Connect, your network must meet one of the following conditions:
+Your network is collocated with an existing AWS Direct Connect location. For more information on available
+AWS Direct Connect locations, go to
+http://aws.amazon.com/directconnect/
+.
+You are working with an AWS Direct Connect partner who is a member of the AWS Partner Network (APN).
+For a list of AWS Direct Connect partners who can help you connect, go to http://aws.amazon.com/ directconnect
+.
+You are working with an independent service provider to connect to AWS Direct Connect.
+In addition, your network must meet the following conditions:
+Connections to AWS Direct Connect require single mode fiber, 1000BASE-LX (1310nm) for 1 gigabit Ethernet, or 10GBASE-LR (1310nm) for 10 gigabit Ethernet. Auto Negotiation for the port must be disabled. You must support 802.1Q VLANs across these connections.
+Your network must support Border Gateway Protocol (BGP) and BGP MD5 authentication. Optionally, you may configure Bidirectional Forwarding Detection (BFD).
+To connect to Amazon Virtual Private Cloud (Amazon VPC), you must first do the following:
+Provide a private Autonomous System Number (ASN). Amazon allocates a private IP address in the 169.x.x.x range to you.
+Create a virtual private gateway and attach it to your VPC. For more information about creating a virtual private gateway, see
+Adding a Hardware Virtual Private Gateway to Your VPC
+in the Amazon VPC User Guide.
+To connect to public AWS products such as Amazon EC2 and Amazon S3, you need to provide the following:
+A public ASN that you own (preferred) or a private ASN.
+Public IP addresses (/31) (that is, one for each end of the BGP session) for each BGP session. If you do not have public IP addresses to assign to this connection, log on to AWS and then open a ticket with AWS
+
+Support -
+.
+The public routes that you will advertise over BGP.
+
+** Question #36
+
 You have a periodic image analysis application that gets some files in input, analyzes them and tor each file writes some data in output to a ten file the number of files in input per day is high and concentrated in a few hours of the day.
 Currently you have a server on EC2 with a large EBS volume that hosts the input data and the results. It takes almost 20 hours per day to complete the process.
 What services could be used to reduce the elaboration time and improve the availability of the solution?
@@ -830,7 +886,10 @@ B. EBS with Provisioned IOPS (PIOPS) to store I/O files. SNS to distribute elabo
 C. S3 to store I/O files, SNS to distribute evaporation commands to a group of hosts working in parallel. Auto scaling to dynamically size the group of hosts depending on the number of SNS notifications
 D. EBS with Provisioned IOPS (PIOPS) to store I/O files SQS to distribute elaboration commands to a group of hosts working in parallel Auto Scaling to dynamically size the group ot hosts depending on the length of
 
-Question #37Topic 1
+   Ans:
+
+** Question #37
+
 You have been asked to design the storage layer for an application. The application requires disk performance of at least 100,000 IOPS. In addition, the storage layer must be able to survive the loss of an individual disk,
 EC2 instance, or Availability Zone without any data loss. The volume you provide must have a capacity of at least 3 TB.
 Which of the following designs will meet these objectives?
