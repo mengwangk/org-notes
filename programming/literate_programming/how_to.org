@@ -1,0 +1,51 @@
+* Literate Programming
+
+#+begin_src python
+    print("literate programming")
+    return 2
+#+end_src
+
+#+RESULTS:
+: 2
+
+#+begin_src sh
+    ls
+#+end_src
+
+#+RESULTS:
+: how_to.org
+
+
+* Command Log Mode
+
+- Enable command log mode
+
+ 
+* Org Mode
+
+[[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Emacs Howto]]
+
+** Sub Heading <m-enter>
+
+*** Sub heading <tab> or <m-arrow>
+
+1. order list 1
+2. order list 2
+   a. sub order
+      a. order
+3. sff
+
+   <m-shift-left/right> to add/remove columns
+
+   |   |   |   |   |   |   |   |   |   | xx |   | xx | xx | xx |
+   |---+---+---+---+---+---+---+---+---+----+---+----+----+----|
+   |   |   |   |   |   |   |   |   |   |    |   |    |    |    |
+
+   C-c |
+
+   |         |      |     |   |   |
+   |---------+------+-----+---+---|
+   | sdffdsf | fsdf | dfd |   |   |
+   |---------+------+-----+---+---|
+   | ffsdf   |      |     |   |   |
+   | ffd     |      |     |   |   |
