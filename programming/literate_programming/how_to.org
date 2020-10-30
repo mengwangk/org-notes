@@ -1,26 +1,128 @@
 * Literate Programming
 
+Refer to [[https://www.youtube.com/watch?v=GK3fij-D1G8][Emacs Literal Programming]]
+
 #+begin_src python
-    print("literate programming")
-    return 2
+print("literate programming")
+return 2
 #+end_src
 
 #+RESULTS:
 : 2
 
 #+begin_src sh
+    cd ..
     ls
 #+end_src
 
 #+RESULTS:
-: how_to.org
+| articles_videos      |
+| books                |
+| literate_programming |
+
+"<s" tab to expand code block
+"<c" tab to expand comment
+"<q" tab to expand quote
+
+"c-c c-c" to run
+
+#+BEGIN_QUOTE
+
+#+END_QUOTE
+
+#+BEGIN_EXAMPLE
+
+#+END_EXAMPLE
+
+#+BEGIN_COMMENT
+    This is a comment
+#+END_COMMENT
+
+#+begin_src python :results output
+print("hello world")
+print("another line")
+#+end_src
+
+#+RESULTS:
+: hello world
+: another line
+
+c-c '  - to edit in another buffer
+
+#+BEGIN_SRC cpp
+#include <iostream>
+int main() {
+    std::cout << "Hello cpp" << std::endl;
+    return 0;
+}
+#+END_SRC
+
+#+RESULTS:
+: Hello cpp
+
+~hello-world~. Here is an example using the ~Eigen~ library and the ~c++17~ compiler.
+
+#+BEGIN_SRC C++ :flags '("-std=c++17") :results output
+#include <iostream>
+#include <Eigen/Dense>
+using namespace Eigen;
+using namespace std;
+int main()
+{
+  Matrix3d m = Matrix3d::Random();
+  m = (m + Matrix3d::Constant(1.2)) * 50;
+  cout << "m =" << endl << m << endl;
+  Vector3d v(1,2,3);
+
+  cout << "m * v =" << endl << m * v << endl;
+}
+#+END_SRC
+
+#+RESULTS:
+
+* Chaining
+
+** Using session
+#+BEGIN_SRC sh :session my-session :results silent
+MY_NAME='hello world again'
+#+END_SRC
+
+#+BEGIN_SRC sh :session my-session :results output
+echo $MY_NAME
+#+END_SRC
+
+#+RESULTS:
+: hello world again
+
+** Using properties
+:PROPERTIES:
+:headers-args: :session my-session
+:END:
+
+#+BEGIN_SRC python :results output
+def calculate_sum(numbers):
+    sum = 0
+    for number in numbers:
+       sum += number
+
+    return sum
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :results output
+numbers = [x for x in range(20)]
+print("The sum of the numbers is: " + str(calculate_sum(numbers)))
+#+END_SRC
+
+#+RESULTS:
 
 
 * Command Log Mode
 
-- Enable command log mode
+- Enable command log mode <m-x> command-log-mode
+- clm/toggle-command-log-buffer <C-c o>
 
- 
 * Org Mode
 
 [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][Emacs Howto]]
@@ -49,3 +151,15 @@
    |---------+------+-----+---+---|
    | ffsdf   |      |     |   |   |
    | ffd     |      |     |   |   |
+
+
+   C-c ~ using table.el
+
+    +-----+-----+-----+
+    | fsdfsdf | sdfdsfs | sdfdsfs |
+    |         |         |         |
+    +-----+-----+-----+
+    |   |   | asfsdfdsfdsf |
+    +-----+-----+-----+
+    |     |     |     |
+    +-----+-----+-----+
