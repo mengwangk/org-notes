@@ -95,11 +95,14 @@ echo $MY_NAME
 : hello world again
 
 ** Using properties
+
 :PROPERTIES:
-:headers-args: :session my-session
+:headers-args:python :session *python*
+:header-args+ :results silent
+:header-args+ :tangle yes
 :END:
 
-#+BEGIN_SRC python :results output
+#+BEGIN_SRC python :results silent
 def calculate_sum(numbers):
     sum = 0
     for number in numbers:
@@ -117,6 +120,31 @@ print("The sum of the numbers is: " + str(calculate_sum(numbers)))
 
 #+RESULTS:
 
+
+Use name to share code
+
+#+NAME: python-calc
+#+BEGIN_SRC python
+def calculate_sum(numbers):
+    sum = 0
+    for number in numbers:
+       sum += number
+
+    return sum
+#+END_SRC
+
+#+RESULTS: python-calc
+: None
+
+And here we create the data dn call the function
+#+BEGIN_SRC python :results output :noweb yes
+<<python-calc>>
+numbers = [x for x in range(20)]
+print("The sum of the numbers is: " + str(calculate_sum(numbers)))
+#+END_SRC
+
+#+RESULTS:
+: The sum of the numbers is: 190
 
 * Command Log Mode
 

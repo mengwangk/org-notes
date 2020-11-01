@@ -1,0 +1,4 @@
+* Time Series
+:PROPERTIES:
+:NOTER_DOCUMENT: /Users/mengwangk/workspace/development/coding-and-reading/machine_learning/Python for Data Analysis, 2nd Edition.pdf
+:END:
