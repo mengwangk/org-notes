@@ -1,0 +1,16 @@
+#+TITLE:     [[https://d2l.ai/chapter_preliminaries/ndarray.html][2.1 Data Manipulation]]
+#+PROPERTY: header-args :session mysession :results output :tangle yes
+
+#+BEGIN_SRC python
+import torch
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python
+x = torch.arange(2)
+print(x)
+#+END_SRC
+
+#+RESULTS:
+: tensor([0, 1])
