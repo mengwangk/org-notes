@@ -1,2 +1,2 @@
-# wiki-notes
-Personal notes
+# org-notes
+Notes using Emacs org mode.
