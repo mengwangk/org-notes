@@ -48,3 +48,10 @@ hello \(E=mc^2\)
 hello $$E=mc^2$$
 * Brackets
 hello \[E=mc^2\]
+
+* LIST []
+** TODO item 1
+** DONE item 2
+** TODO item 3
+
+*
